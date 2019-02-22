@@ -1,7 +1,6 @@
 package hotelbookings.journey.tasks;
 
 import hotelbookings.journey.actions.ReadingAction;
-import hotelbookings.journey.screen.HotelPage;
 
 import static hotelbookings.journey.actions.ClickingAction.clickOn;
 import static hotelbookings.journey.screen.HotelPage.buttonDelete;

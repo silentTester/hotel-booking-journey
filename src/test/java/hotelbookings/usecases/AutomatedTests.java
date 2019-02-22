@@ -21,13 +21,24 @@ import static org.openqa.selenium.By.xpath;
 
 public class AutomatedTests {
 
+    protected String randomFirstName;
+    protected String lastName;
+
+    protected final String PRICE = "100.99";
+    protected final String DEPOSIT_PAID = "true";
+    protected final String DEPOSIT_NOT_PAID = "false";
+    protected final String CHECK_IN_DATE = "2019-04-07";
+    protected final String CHECK_OUT_DATE = "2019-04-09";
+    protected final int NUMBER_OF_DUPLICATES = 2;
+    protected final int CHECK_IN_DAY = 21;
+    protected final int CHECK_OUT_DAY = 23;
     protected final int PREVIOUS_MONTH = -1;
     protected final int CURRENT_MONTH = 0;
 
     private static final String TEST_URL = "http://hotel-test.equalexperts.io";
     private static final String WEB_DRIVER = "webdriver.chrome.driver";
     private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
-    protected static final int TIME_OUT_IN_SECONDS = 15;
+    protected static final int TIME_OUT_SECONDS = 10;
 
     protected static WebDriver driver;
     protected static WebDriverWait wait;
@@ -38,7 +49,7 @@ public class AutomatedTests {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
         driver = new ChromeDriver(chromeOptions);
-        wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
+        wait = new WebDriverWait(driver, TIME_OUT_SECONDS);
     }
 
     @AfterClass

@@ -26,19 +26,19 @@ public class pickBookingDatesTask {
         clickOn(selectorByCalenderDay(day));
     }
 
-    public static void clickOnCalenderCheckOutMonth(int numberTimes, int day) {
+    public static void clickOnCalenderCheckOutMonth(int numberClicks, int day) {
         clickOn(fieldCheckOut);
 
-        for (int index = 0; index < numberTimes; index++) {
+        for (int index = 0; index < numberClicks; index++) {
             clickOn(nextCalenderMonth());
         }
         clickOn(selectorByCalenderDay(day));
     }
 
-    public static void clickOnCalenderCheckInPreviousMonth(int numberTimes, int day) {
+    public static void clickOnCalenderCheckInPreviousMonth(int numberClicks, int day) {
         clickOn(fieldCheckIn);
 
-        for (int index = 0; index < numberTimes; index++) {
+        for (int index = 0; index < numberClicks; index++) {
             clickOn(previousCalenderMonth());
         }
         clickOn(selectorByCalenderDay(day));

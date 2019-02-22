@@ -10,7 +10,6 @@ public class JSCalenderApplet {
 
     public static By selectorByCalenderDay(int day) {
         String selector = xpathDayBy + day + "']";
-
         return By.xpath(selector);
     }
 

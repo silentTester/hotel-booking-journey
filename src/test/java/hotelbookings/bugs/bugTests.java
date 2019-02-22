@@ -1,6 +1,7 @@
 package hotelbookings.bugs;
 
 import hotelbookings.usecases.AutomatedTests;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -11,44 +12,47 @@ import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCu
 
 public class bugTests extends AutomatedTests {
 
-    private static final String DEPOSIT_PAID = "true";
-    private static final String INVALID_CHECK_OUT = "1270231";
-    private static final String INVALID_CHECK_IN = "1292192";
-    private static final String PRICE = "88.99";
-    private static final String DEPOSIT_NOT_PAID = "false";
-    private static String randomFirstName;
-    private String lastName;
+    private final String INTEGER_CHECK_OUT_DATE = "1270231";
+    private final String INTEGER_CHECK_IN_DATE = "1292192";
+    private final String INVALID_CHECK_OUT_DATE = "2019-02-31";
+
+    @Before
+    public void setUpData() {
+        randomFirstName = UUID.randomUUID().toString();
+    }
 
     @Test
     public void shouldNotMakeBookingInThePast() {
-        randomFirstName = UUID.randomUUID().toString();
         lastName = "BUG_PATH_PREVIOUS_MONTH";
-        int checkInDay = 11;
-        int checkOutDay = 13;
 
         givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID);
-        givenUserClicksOnTheCalenderToCheckInForPreviousMonth(checkInDay);
-        givenUserClicksOnTheCalenderToCheckOutForCurrentMonth(checkOutDay);
+        givenUserClicksOnTheCalenderToCheckInForPreviousMonth(CHECK_IN_DAY);
+        givenUserClicksOnTheCalenderToCheckOutForCurrentMonth(CHECK_OUT_DAY);
 
         whenUserSavesBooking();
 
-        thenIncorrectBookingWithPastCheckInDateIsSaved(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
-                currentMonthOf(checkInDay, PREVIOUS_MONTH), currentMonthOf(checkOutDay, CURRENT_MONTH));
-    }
-
-    private void thenIncorrectBookingWithPastCheckInDateIsSaved(String firstName, String lastName, String price, String deposit,
-                                                                String checkIn, String checkOut) {
-        thenBookingIsSavedFor(firstName, lastName, price, deposit, checkIn, checkOut);
+        thenIncorrectBookingSavedWithPastCheckInDate(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
+                currentMonthOf(CHECK_IN_DAY, PREVIOUS_MONTH), currentMonthOf(CHECK_OUT_DAY, CURRENT_MONTH));
     }
 
     @Test
-    public void shouldNotMakeBookingWithInvalidDates() {
-        randomFirstName = UUID.randomUUID().toString();
-        lastName = "BUG_PATH_INVALID_DATES";
+    public void shouldNotMakeBookingUsingIntegersAsDates() {
+        lastName = "BUG_PATH_INTEGER_DATES";
 
-        givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, INVALID_CHECK_IN, INVALID_CHECK_OUT);
+        givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, INTEGER_CHECK_IN_DATE, INTEGER_CHECK_OUT_DATE);
 
-        thenIncorrectBookingIsSaved(randomFirstName, lastName);
+        thenIncorrectBookingSaved(randomFirstName, lastName);
+    }
+
+    @Test
+    public void shouldNotMakeReservationWithInvalidCheckOutDate() {
+        lastName = "BUG_PATH_INVALID_CHECK_OUT_DATE";
+
+        givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, INVALID_CHECK_OUT_DATE);
+
+        whenUserSavesBooking();
+
+        thenIncorrectBookingSaved(randomFirstName, lastName);
     }
 
     //Givens
@@ -61,8 +65,13 @@ public class bugTests extends AutomatedTests {
     }
 
     //Thens
-    private void thenIncorrectBookingIsSaved(String firstName, String lastName) {
+    private void thenIncorrectBookingSaved(String firstName, String lastName) {
         assertInvalidSavedBooking(firstName, lastName);
+    }
+
+    private void thenIncorrectBookingSavedWithPastCheckInDate(String firstName, String lastName, String price, String deposit,
+                                                              String checkIn, String checkOut) {
+        thenBookingIsSavedFor(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
 }

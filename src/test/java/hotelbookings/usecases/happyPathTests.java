@@ -1,5 +1,6 @@
 package hotelbookings.usecases;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -11,53 +12,42 @@ import static hotelbookings.journey.tasks.pickBookingDatesTask.*;
 
 public class happyPathTests extends AutomatedTests {
 
-    private static final String LAST_NAME = "HAPPY_PATH";
-    private static final String PRICE = "100.99";
-    private static final String DEPOSIT_PAID = "true";
-    private static final String DEPOSIT_NOT_PAID = "false";
-    private static final String CHECK_IN = "2019-04-07";
-    private static final String CHECK_OUT = "2019-04-09";
-    private static final int NUMBER_OF_DUPLICATES = 2;
-    private static String randomFirstName;
-    private static String lastName;
+    private final String LAST_NAME = "HAPPY_PATH";
+
+    @Before
+    public void setUpData() {
+        randomFirstName = UUID.randomUUID().toString();
+    }
 
     @Test
     public void shouldMakeABooking() {
-        randomFirstName = UUID.randomUUID().toString();
+        givenUserMakesBooking(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        givenUserMakesBooking(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN, CHECK_OUT);
-
-        thenBookingIsSavedFor(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN, CHECK_OUT);
+        thenBookingIsSavedFor(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
     }
 
     @Test
     public void shouldCancelABooking() {
-        randomFirstName = UUID.randomUUID().toString();
         lastName = "DELETE_HAPPY_PATH";
 
-        givenABookingExistsFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN, CHECK_OUT);
+        givenABookingExistsFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        whenUserDeletesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN, CHECK_OUT);
+        whenUserDeletesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        thenBookingIsDeletedFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN, CHECK_OUT);
+        thenBookingIsDeletedFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
     }
 
     @Test
     public void shouldMakeDuplicateBookings() {
-        randomFirstName = UUID.randomUUID().toString();
         lastName = "DUPLICATE_HAPPY_PATH";
-        String price = "150";
-        String checkIn = "2019-05-01";
-        String checkOut = "2019-05-11";
 
-        givenDuplicateReservationsFor(randomFirstName, lastName, price, DEPOSIT_NOT_PAID, checkIn, checkOut);
+        givenDuplicateReservationsFor(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        thenDuplicateBookingsExistFor(randomFirstName, lastName, price, DEPOSIT_NOT_PAID, checkIn, checkOut);
+        thenDuplicateBookingsExistFor(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
     }
 
     @Test
     public void shouldMakeMultipleUniqueBookings() {
-        randomFirstName = UUID.randomUUID().toString();
         lastName = "UNIQUE_HAPPY_PATH";
 
         givenMultipleUniqueReservationsFor(randomFirstName, lastName);
@@ -67,37 +57,29 @@ public class happyPathTests extends AutomatedTests {
 
     @Test
     public void shouldMakeBookingUsingCalendar() {
-        randomFirstName = UUID.randomUUID().toString();
         lastName = "CALENDAR_HAPPY_PATH";
-        String price = "199.5";
-        int checkInDay = 21;
-        int checkOutDay = 23;
 
-        givenUserFillsInBookingForm(randomFirstName, lastName, price, DEPOSIT_PAID);
-        givenUserClicksOnTheCalenderFor(checkInDay, checkOutDay);
+        givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_PAID);
+        givenUserClicksOnTheCalenderFor(CHECK_IN_DAY, CHECK_OUT_DAY);
 
         whenUserSavesBooking();
 
-        thenBookingIsSavedFor(randomFirstName, lastName, price, DEPOSIT_PAID,
-                currentMonthOf(checkInDay, CURRENT_MONTH), currentMonthOf(checkOutDay, CURRENT_MONTH));
+        thenBookingIsSavedFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID,
+                currentMonthOf(CHECK_IN_DAY, CURRENT_MONTH), currentMonthOf(CHECK_OUT_DAY, CURRENT_MONTH));
     }
 
     @Test
     public void shouldMakeBookingUsingCalendarForNextMonth() {
-        randomFirstName = UUID.randomUUID().toString();
-        lastName = "CALENDAR_HAPPY_PATH";
-        String price = "99.99";
-        int checkInDay = 11;
-        int checkOutDay = 13;
+        lastName = "CALENDAR_NEXT_MONTH_HAPPY_PATH";
 
-        givenUserFillsInBookingForm(randomFirstName, lastName, price, DEPOSIT_NOT_PAID);
-        givenUserClicksOnTheCalenderToCheckInForNextMonth(checkInDay);
-        givenUserClicksOnTheCalenderToCheckOutForNextMonth(checkOutDay);
+        givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID);
+        givenUserClicksOnTheCalenderToCheckInForNextMonth(CHECK_IN_DAY);
+        givenUserClicksOnTheCalenderToCheckOutForNextMonth(CHECK_OUT_DAY);
 
         whenUserSavesBooking();
 
-        thenBookingIsSavedFor(randomFirstName, lastName, price, DEPOSIT_NOT_PAID,
-                currentMonthOf(checkInDay, 1), currentMonthOf(checkOutDay, 1));
+        thenBookingIsSavedFor(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
+                currentMonthOf(CHECK_IN_DAY, 1), currentMonthOf(CHECK_OUT_DAY, 1));
     }
 
     //Givens
@@ -116,9 +98,9 @@ public class happyPathTests extends AutomatedTests {
     }
 
     private void givenMultipleUniqueReservationsFor(String firstName, String lastName) {
-        givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN, CHECK_OUT);
+        givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN, CHECK_OUT);
+        givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
     }
 
     private void givenUserClicksOnTheCalenderFor(int checkIn, int checkOut) {
@@ -144,7 +126,7 @@ public class happyPathTests extends AutomatedTests {
     //Thens
     private void thenBookingIsDeletedFor(String firstName, String lastName, String price, String deposit,
                                          String checkIn, String checkOut) {
-        assertDeletedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
+        assertBookingDeleted(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     private void thenDuplicateBookingsExistFor(String firstName, String lastName, String price, String deposit,

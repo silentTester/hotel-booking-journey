@@ -1,14 +1,11 @@
 package hotelbookings.journey.tasks;
 
-import static hotelbookings.journey.actions.CountingAction.isManyBookingsFound;
 import static hotelbookings.journey.actions.DisplayedAction.isDisplayed;
 import static hotelbookings.journey.actions.ReadingAction.getAttributeIdFrom;
 import static hotelbookings.journey.actions.ReadingAction.getTextFrom;
-import static hotelbookings.journey.actions.WaitingAction.isBookingFound;
-import static hotelbookings.journey.actions.WaitingAction.isBookingNotFound;
+import static hotelbookings.journey.actions.WaitingAction.*;
 import static hotelbookings.journey.screen.HotelPage.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class checkBookingTask {
 
@@ -25,7 +22,7 @@ public class checkBookingTask {
                 checkIn, checkOut)))));
     }
 
-    public static void assertDeletedBooking(String firstName, String lastName, String price, String deposit,
+    public static void assertBookingDeleted(String firstName, String lastName, String price, String deposit,
                                             String checkIn, String checkOut) {
         assertTrue(isBookingNotFound(selectorByReservation(firstName, lastName, price, deposit, checkIn, checkOut)));
     }
@@ -48,7 +45,11 @@ public class checkBookingTask {
     }
 
     public static void assertUnsavedBooking(String firstName, String lastName) {
-        assertTrue(isBookingNotFound(selectorByName(firstName, lastName)));
+        assertFalse(isBookingFound(selectorByName(firstName, lastName)));
+    }
+
+    public static void assertUnsavedBookingWithoutNames(String price, String deposit, String checkIn, String checkOut) {
+        assertFalse(isBookingFound(selectorWithoutName(price, deposit, checkIn, checkOut)));
     }
 
 }
