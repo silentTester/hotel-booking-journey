@@ -21,7 +21,7 @@ public class pickBookingDateTask extends AutomatedTests {
     public static void clickOnCalenderCheckInMonth(int numberTimes, int day) {
         ClickingAction.clickOn(HotelPage.fieldCheckIn);
 
-        for (int count = 0; count < numberTimes; count++) {
+        for (int index = 0; index < numberTimes; index++) {
             ClickingAction.clickOn(JSCalenderApplet.nextCalenderMonth());
         }
         ClickingAction.clickOn(HotelPage.getCalenderDay(day));
@@ -30,7 +30,7 @@ public class pickBookingDateTask extends AutomatedTests {
     public static void clickOnCalenderCheckOutMonth(int numberTimes, int day) {
         ClickingAction.clickOn(HotelPage.fieldCheckOut);
 
-        for (int count = 0; count < numberTimes; count++) {
+        for (int index = 0; index < numberTimes; index++) {
             ClickingAction.clickOn(JSCalenderApplet.nextCalenderMonth());
         }
         ClickingAction.clickOn(HotelPage.getCalenderDay(day));
@@ -39,7 +39,7 @@ public class pickBookingDateTask extends AutomatedTests {
     public static void clickOnCalenderCheckInPreviousMonth(int numberTimes, int day) {
         ClickingAction.clickOn(HotelPage.fieldCheckIn);
 
-        for (int count = 0; count < numberTimes; count++) {
+        for (int index = 0; index < numberTimes; index++) {
             ClickingAction.clickOn(JSCalenderApplet.previousCalenderMonth());
         }
         ClickingAction.clickOn(HotelPage.getCalenderDay(day));

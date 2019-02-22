@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class DisplayedAction extends AutomatedTests {
 
-    public static Boolean displayedOn(By selector) {
+    public static Boolean isDisplayed(By selector) {
         return driver.findElement(selector).isDisplayed();
     }
 }

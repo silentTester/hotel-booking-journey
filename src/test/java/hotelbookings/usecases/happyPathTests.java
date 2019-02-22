@@ -101,13 +101,6 @@ public class happyPathTests extends AutomatedTests {
     }
 
     //Givens
-    private void givenUserMakesBooking(String firstName, String lastName, String price, String deposit,
-                                       String checkIn, String checkOut) {
-        givenUserIsOnTheHotelBookingForm();
-
-        makeBookingTask.saveBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
-    }
-
     private void givenABookingExistsFor(String firstName, String lastName, String price, String deposit,
                                         String checkIn, String checkOut) {
         givenUserMakesBooking(firstName, lastName, price, deposit, checkIn, checkOut);

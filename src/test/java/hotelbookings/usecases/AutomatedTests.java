@@ -55,6 +55,13 @@ public class AutomatedTests {
         assertEquals("Hotel booking form", text.getText());
     }
 
+    protected void givenUserMakesBooking(String firstName, String lastName, String price, String deposit,
+                                       String checkIn, String checkOut) {
+        givenUserIsOnTheHotelBookingForm();
+
+        makeBookingTask.saveBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
+    }
+
     protected void givenUserFillsInBookingForm(String firstName, String lastName, String price, String depositPaid) {
         makeBookingTask.fillsInFormWithoutDates(firstName, lastName, price, depositPaid);
     }

@@ -22,19 +22,20 @@ public class HotelPage extends JSCalenderApplet {
         return By.xpath(selector);
     }
 
-    public static By getBookingSelector(String firstName, String lastName, String price, String deposit, String checkIn, String checkOut) {
+    public static By bookingSelectorUsingReservation(String firstName, String lastName, String price, String deposit,
+                                                     String checkIn, String checkOut) {
         String selector = getRowBy + firstName + andContains + lastName + andContains + price +
                 andContains + deposit + andContains + checkIn + andContains + checkOut + "')]";
 
         return By.xpath(selector);
     }
 
-    public static By getBookingAttributeIdSelector(String firstName, String lastName, String price, String deposit,
-                                                   String checkIn, String checkOut) {
-        return getBookingSelector(firstName, lastName, price, deposit, checkIn, checkOut);
+    public static By bookingAttributeIdSelector(String firstName, String lastName, String price, String deposit,
+                                                String checkIn, String checkOut) {
+        return bookingSelectorUsingReservation(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
-    public static By getBookingSelectorUsingNames(String firstName, String lastName) {
+    public static By bookingSelectorUsingName(String firstName, String lastName) {
         String selector = getRowBy + firstName + andContains + lastName + "')]";
 
         return By.xpath(selector);

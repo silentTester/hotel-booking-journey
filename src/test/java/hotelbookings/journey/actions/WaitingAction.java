@@ -9,15 +9,15 @@ import java.util.List;
 
 public class WaitingAction extends AutomatedTests {
 
-    public static void waitForVisibilityAfterRefresh(By selector) {
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(selector));
+    public static Boolean isBookingVisible(By selector) {
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(selector)).size() > 0;
     }
 
-    public static Boolean waitForInvisibilityAfterRefresh(By selector) {
+    public static Boolean isBookingInvisible(By selector) {
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(selector));
     }
 
-    public static List<WebElement> waitForVisibilityCountAfterRefresh(By selector, int expectedCount) {
+    public static List<WebElement> waitForVisibilityOfAllBookings(By selector, int expectedCount) {
         return wait.until(ExpectedConditions.numberOfElementsToBe(selector, expectedCount));
     }
 
