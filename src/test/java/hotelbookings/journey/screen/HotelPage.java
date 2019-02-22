@@ -9,38 +9,36 @@ public class HotelPage extends JSCalenderApplet {
     public static By fieldDeposit = By.id("depositpaid");
     public static By fieldCheckIn = By.id("checkin");
     public static By fieldCheckOut = By.id("checkout");
-
     public static By buttonSave = By.xpath("//input[@value=\" Save \"]");
 
-    private static String getRowBy = "//div[contains(@class, 'row')][contains(., '";
+    private static String xpathRowBy = "//div[contains(@class, 'row')][contains(., '";
     private static String andContains = "') and contains(., '";
-    private static String getDeleteRowBy = "//input[@type='button' and @onclick='deleteBooking(";
+    private static String xpathDeleteRowBy = "//input[@type='button' and @onclick='deleteBooking(";
 
     public static By buttonDelete(String attributeId) {
-        String selector = getDeleteRowBy + attributeId + ")']";
+        String selector = xpathDeleteRowBy + attributeId + ")']";
 
         return By.xpath(selector);
     }
 
-    public static By bookingSelectorUsingReservation(String firstName, String lastName, String price, String deposit,
-                                                     String checkIn, String checkOut) {
-        String selector = getRowBy + firstName + andContains + lastName + andContains + price +
+    public static By selectorByReservation(String firstName, String lastName, String price, String deposit,
+                                           String checkIn, String checkOut) {
+        String selector = xpathRowBy + firstName + andContains + lastName + andContains + price +
                 andContains + deposit + andContains + checkIn + andContains + checkOut + "')]";
 
         return By.xpath(selector);
     }
 
-    public static By bookingAttributeIdSelector(String firstName, String lastName, String price, String deposit,
-                                                String checkIn, String checkOut) {
-        return bookingSelectorUsingReservation(firstName, lastName, price, deposit, checkIn, checkOut);
+    public static By selectorByAttributeId(String firstName, String lastName, String price, String deposit,
+                                           String checkIn, String checkOut) {
+        return selectorByReservation(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
-    public static By bookingSelectorUsingName(String firstName, String lastName) {
-        String selector = getRowBy + firstName + andContains + lastName + "')]";
+    public static By selectorByName(String firstName, String lastName) {
+        String selector = xpathRowBy + firstName + andContains + lastName + "')]";
 
         return By.xpath(selector);
     }
-
 
 }
 

@@ -2,7 +2,6 @@ package hotelbookings.usecases;
 
 import hotelbookings.journey.tasks.cancelBookingTask;
 import hotelbookings.journey.tasks.checkBookingTask;
-import hotelbookings.journey.tasks.makeBookingTask;
 import hotelbookings.journey.tasks.pickBookingDateTask;
 import org.junit.Test;
 
@@ -144,17 +143,17 @@ public class happyPathTests extends AutomatedTests {
     //Thens
     private void thenBookingIsDeletedFor(String firstName, String lastName, String price, String deposit,
                                          String checkIn, String checkOut) {
-        checkBookingTask.assertBookingIsDeleted(firstName, lastName, price, deposit, checkIn, checkOut);
+        checkBookingTask.assertDeletedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     private void thenDuplicateBookingsExistFor(String firstName, String lastName, String price, String deposit,
                                                String checkIn, String checkOut) {
-        checkBookingTask.assertCountDuplicateBookings(firstName, lastName, price, deposit,
+        checkBookingTask.assertNumberDuplicateBookings(firstName, lastName, price, deposit,
                 checkIn, checkOut, NUMBER_OF_DUPLICATES);
     }
 
     private void thenThereAreMultipleReservationsBookedFor(String firstName, String lastName) {
-        checkBookingTask.assertCountDuplicateUniqueBookings(firstName, lastName, NUMBER_OF_DUPLICATES);
+        checkBookingTask.assertNumberUniqueBookings(firstName, lastName, NUMBER_OF_DUPLICATES);
     }
 
 }

@@ -12,51 +12,56 @@ import static org.junit.Assert.assertTrue;
 
 public class checkBookingTask extends AutomatedTests {
 
-    public static void assertBookingIsSaved(String firstName, String lastName, String price, String deposit,
-                                            String checkIn, String checkOut) {
-        assertTrue(WaitingAction.isBookingVisible(HotelPage.bookingSelectorUsingReservation(firstName, lastName, price, deposit,
+    public static void assertSavedBooking(String firstName, String lastName, String price, String deposit,
+                                          String checkIn, String checkOut) {
+        assertTrue(WaitingAction.isBookingFound(HotelPage.selectorByReservation(firstName, lastName, price, deposit,
                 checkIn, checkOut)));
 
         String expectedBooking = (firstName + " " + lastName + " " + price + " " + deposit + " " + checkIn + " " + checkOut);
-        String savedBooking = ReadingAction.getTextFrom(HotelPage.bookingSelectorUsingReservation(firstName, lastName, price, deposit,
+        String savedBooking = ReadingAction.getTextFrom(HotelPage.selectorByReservation(firstName, lastName, price, deposit,
                 checkIn, checkOut)).replaceAll("\n", " ");
         assertEquals(expectedBooking, savedBooking);
 
-        String attributeId = ReadingAction.getAttributeIdFrom(HotelPage.bookingAttributeIdSelector(firstName, lastName, price, deposit,
+        String attributeId = ReadingAction.getAttributeIdFrom(HotelPage.selectorByAttributeId(firstName, lastName, price, deposit,
                 checkIn, checkOut));
         assertTrue(DisplayedAction.isDisplayed(HotelPage.buttonDelete(attributeId)));
     }
 
-    public static void assertBookingIsDeleted(String firstName, String lastName, String price, String deposit,
-                                              String checkIn, String checkOut) {
-        Boolean bookingIsDeleted = WaitingAction.isBookingInvisible(HotelPage.bookingSelectorUsingReservation(firstName,
+    public static void assertDeletedBooking(String firstName, String lastName, String price, String deposit,
+                                            String checkIn, String checkOut) {
+        Boolean bookingIsDeleted = WaitingAction.isBookingNotFound(HotelPage.selectorByReservation(firstName,
                 lastName, price, deposit, checkIn, checkOut));
 
         assertTrue(bookingIsDeleted);
     }
 
-    public static void assertCountDuplicateBookings(String firstName, String lastName, String price,
-                                                    String deposit, String checkIn, String checkOut,
-                                                    int expectedDuplicateNumber) {
+    public static void assertNumberDuplicateBookings(String firstName, String lastName, String price,
+                                                     String deposit, String checkIn, String checkOut,
+                                                     int expectedDuplicateNumber) {
         boolean countDuplicateBookings = CountingAction.isManyBookings
-                (HotelPage.bookingSelectorUsingReservation(firstName, lastName, price, deposit, checkIn, checkOut),
+                (HotelPage.selectorByReservation(firstName, lastName, price, deposit, checkIn, checkOut),
                         expectedDuplicateNumber);
 
         assertTrue(countDuplicateBookings);
     }
 
-    public static void assertCountDuplicateUniqueBookings(String firstName, String lastName, int expectedDuplicateNumber) {
+    public static void assertNumberUniqueBookings(String firstName, String lastName, int expectedDuplicateNumber) {
         boolean countDuplicateBookings = CountingAction.isManyBookings
-                (HotelPage.bookingSelectorUsingName(firstName, lastName), expectedDuplicateNumber);
+                (HotelPage.selectorByName(firstName, lastName), expectedDuplicateNumber);
 
         assertTrue(countDuplicateBookings);
     }
 
-    public static void assertInvalidBookingSaved(String firstName, String lastName) {
-        assertTrue(WaitingAction.isBookingVisible(HotelPage.bookingSelectorUsingName(firstName, lastName)));
+    public static void assertInvalidSavedBooking(String firstName, String lastName) {
+        assertTrue(WaitingAction.isBookingFound(HotelPage.selectorByName(firstName, lastName)));
 
-        String attributeId = ReadingAction.getAttributeIdFrom(HotelPage.bookingSelectorUsingName(firstName, lastName));
+        String attributeId = ReadingAction.getAttributeIdFrom(HotelPage.selectorByName(firstName, lastName));
 
         assertTrue(DisplayedAction.isDisplayed(HotelPage.buttonDelete(attributeId)));
     }
+
+    public static void assertUnsavedBooking(String firstName, String lastName) {
+        assertTrue(WaitingAction.isBookingNotFound(HotelPage.selectorByName(firstName, lastName)));
+    }
+
 }

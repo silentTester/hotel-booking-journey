@@ -9,11 +9,9 @@ import java.util.UUID;
 
 public class bugTests extends AutomatedTests {
 
-    private static final String LAST_NAME = "BUG_PATH";
-    public static final String DEPOSIT_PAID = "true";
-    public static final String INVALID_CHECK_OUT = "1270231";
-    public static final String INVALID_CHECK_IN = "1292192";
-    private final int INVALID_FIRST_NAME = 999;
+    private static final String DEPOSIT_PAID = "true";
+    private static final String INVALID_CHECK_OUT = "1270231";
+    private static final String INVALID_CHECK_IN = "1292192";
     private static final String PRICE = "88.99";
     private static final String DEPOSIT_NOT_PAID = "false";
     private static String randomFirstName;
@@ -45,7 +43,7 @@ public class bugTests extends AutomatedTests {
     @Test
     public void shouldNotMakeBookingWithInvalidDates() {
         randomFirstName = UUID.randomUUID().toString();
-        lastName = "BUG_PATH_INVALID_DATE";
+        lastName = "BUG_PATH_INVALID_DATES";
 
         givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, INVALID_CHECK_IN, INVALID_CHECK_OUT);
 
@@ -63,7 +61,7 @@ public class bugTests extends AutomatedTests {
 
     //Thens
     private void thenIncorrectBookingIsSaved(String firstName, String lastName) {
-        checkBookingTask.assertInvalidBookingSaved(firstName, lastName);
+        checkBookingTask.assertInvalidSavedBooking(firstName, lastName);
     }
 
 }

@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'hotel-booking-journey'
+group 'tests'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

@@ -23,7 +23,7 @@ public class AutomatedTests {
     private static final String WEB_DRIVER = "webdriver.chrome.driver";
     private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
     private static final String[] HEADLESS_MODE = {"--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors"};
-    private static final int TIME_OUT_IN_SECONDS = 10;
+    protected static final int TIME_OUT_IN_SECONDS = 15;
 
     protected static WebDriver driver;
     protected static WebDriverWait wait;
@@ -56,7 +56,7 @@ public class AutomatedTests {
     }
 
     protected void givenUserMakesBooking(String firstName, String lastName, String price, String deposit,
-                                       String checkIn, String checkOut) {
+                                         String checkIn, String checkOut) {
         givenUserIsOnTheHotelBookingForm();
 
         makeBookingTask.saveBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
@@ -73,8 +73,8 @@ public class AutomatedTests {
 
     //Thens
     protected void thenBookingIsSavedFor(String firstName, String lastName, String price, String deposit,
-                                       String checkIn, String checkOut) {
-        checkBookingTask.assertBookingIsSaved(firstName, lastName, price, deposit, checkIn, checkOut);
+                                         String checkIn, String checkOut) {
+        checkBookingTask.assertSavedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     //commons
