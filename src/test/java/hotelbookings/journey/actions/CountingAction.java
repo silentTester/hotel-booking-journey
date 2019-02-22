@@ -1,6 +1,6 @@
 package hotelbookings.journey.actions;
 
-import hotelbookings.AutomatedTests;
+import hotelbookings.usecases.AutomatedTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

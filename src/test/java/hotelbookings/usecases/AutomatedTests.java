@@ -1,5 +1,7 @@
-package hotelbookings;
+package hotelbookings.usecases;
 
+import hotelbookings.journey.tasks.checkBookingTask;
+import hotelbookings.journey.tasks.makeBookingTask;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -51,6 +53,21 @@ public class AutomatedTests {
 
         WebElement text = driver.findElement(xpath("//div[contains(@class, 'jumbotron')]"));
         assertEquals("Hotel booking form", text.getText());
+    }
+
+    protected void givenUserFillsInBookingForm(String firstName, String lastName, String price, String depositPaid) {
+        makeBookingTask.fillsInFormWithoutDates(firstName, lastName, price, depositPaid);
+    }
+
+    //Whens
+    protected void whenUserSavesBooking() {
+        makeBookingTask.clickSave();
+    }
+
+    //Thens
+    protected void thenBookingIsSavedFor(String firstName, String lastName, String price, String deposit,
+                                       String checkIn, String checkOut) {
+        checkBookingTask.assertBookingIsSaved(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     //commons

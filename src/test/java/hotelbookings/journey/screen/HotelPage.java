@@ -1,9 +1,8 @@
 package hotelbookings.journey.screen;
 
-import hotelbookings.journey.JavaScriptApplet.CalendarJSApplet;
 import org.openqa.selenium.By;
 
-public class HotelPage extends CalendarJSApplet {
+public class HotelPage extends JSCalenderApplet {
     public static By setFirstName = By.id("firstname");
     public static By setLastName = By.id("lastname");
     public static By setPrice = By.id("totalprice");

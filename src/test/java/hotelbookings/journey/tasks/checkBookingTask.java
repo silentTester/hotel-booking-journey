@@ -1,6 +1,6 @@
 package hotelbookings.journey.tasks;
 
-import hotelbookings.AutomatedTests;
+import hotelbookings.usecases.AutomatedTests;
 import hotelbookings.journey.actions.CountingAction;
 import hotelbookings.journey.actions.DisplayedAction;
 import hotelbookings.journey.actions.ReadingAction;

@@ -1,6 +1,5 @@
 package hotelbookings.usecases;
 
-import hotelbookings.AutomatedTests;
 import hotelbookings.journey.tasks.cancelBookingTask;
 import hotelbookings.journey.tasks.checkBookingTask;
 import hotelbookings.journey.tasks.makeBookingTask;
@@ -129,10 +128,6 @@ public class happyPathTests extends AutomatedTests {
         givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN, CHECK_OUT);
     }
 
-    private void givenUserFillsInBookingForm(String firstName, String lastName, String price, String depositPaid) {
-        makeBookingTask.fillsInFormWithoutDates(firstName, lastName, price, depositPaid);
-    }
-
     private void givenUserClicksOnTheCalenderFor(int checkIn, int checkOut) {
         pickBookingDateTask.clickOnCalenderCurrentMonthForCheckIn(checkIn);
 
@@ -153,16 +148,7 @@ public class happyPathTests extends AutomatedTests {
         cancelBookingTask.deleteBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
-    private void whenUserSavesBooking() {
-        makeBookingTask.clickSave();
-    }
-
     //Thens
-    private void thenBookingIsSavedFor(String firstName, String lastName, String price, String deposit,
-                                       String checkIn, String checkOut) {
-        checkBookingTask.assertBookingIsSaved(firstName, lastName, price, deposit, checkIn, checkOut);
-    }
-
     private void thenBookingIsDeletedFor(String firstName, String lastName, String price, String deposit,
                                          String checkIn, String checkOut) {
         checkBookingTask.assertBookingIsDeleted(firstName, lastName, price, deposit, checkIn, checkOut);
