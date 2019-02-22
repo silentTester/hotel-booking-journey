@@ -5,7 +5,7 @@ import static hotelbookings.journey.screen.HotelPage.fieldCheckIn;
 import static hotelbookings.journey.screen.HotelPage.fieldCheckOut;
 import static hotelbookings.journey.screen.JSCalenderApplet.*;
 
-public class pickBookingDateTask {
+public class pickBookingDatesTask {
 
     public static void clickOnCalenderCurrentMonthForCheckIn(int day) {
         clickOn(fieldCheckIn);

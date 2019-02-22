@@ -6,8 +6,8 @@ import org.junit.Test;
 import java.util.UUID;
 
 import static hotelbookings.journey.tasks.checkBookingTask.assertInvalidSavedBooking;
-import static hotelbookings.journey.tasks.pickBookingDateTask.clickOnCalenderCheckInPreviousMonth;
-import static hotelbookings.journey.tasks.pickBookingDateTask.clickOnCalenderCurrentMonthForCheckOut;
+import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCheckInPreviousMonth;
+import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCurrentMonthForCheckOut;
 
 public class bugTests extends AutomatedTests {
 
@@ -23,7 +23,6 @@ public class bugTests extends AutomatedTests {
     public void shouldNotMakeBookingInThePast() {
         randomFirstName = UUID.randomUUID().toString();
         lastName = "BUG_PATH_PREVIOUS_MONTH";
-        int PREVIOUS_MONTH = -1;
         int checkInDay = 11;
         int checkOutDay = 13;
 
@@ -34,7 +33,7 @@ public class bugTests extends AutomatedTests {
         whenUserSavesBooking();
 
         thenIncorrectBookingWithPastCheckInDateIsSaved(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
-                nextMonth(checkInDay, PREVIOUS_MONTH), currentMonth(checkOutDay));
+                currentMonthOf(checkInDay, PREVIOUS_MONTH), currentMonthOf(checkOutDay, CURRENT_MONTH));
     }
 
     private void thenIncorrectBookingWithPastCheckInDateIsSaved(String firstName, String lastName, String price, String deposit,

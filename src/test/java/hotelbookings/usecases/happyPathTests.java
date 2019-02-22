@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import static hotelbookings.journey.tasks.cancelBookingTask.cancelBookingFor;
 import static hotelbookings.journey.tasks.checkBookingTask.*;
-import static hotelbookings.journey.tasks.pickBookingDateTask.*;
+import static hotelbookings.journey.tasks.pickBookingDatesTask.*;
 
 
 public class happyPathTests extends AutomatedTests {
@@ -79,7 +79,7 @@ public class happyPathTests extends AutomatedTests {
         whenUserSavesBooking();
 
         thenBookingIsSavedFor(randomFirstName, lastName, price, DEPOSIT_PAID,
-                currentMonth(checkInDay), currentMonth(checkOutDay));
+                currentMonthOf(checkInDay, CURRENT_MONTH), currentMonthOf(checkOutDay, CURRENT_MONTH));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class happyPathTests extends AutomatedTests {
         whenUserSavesBooking();
 
         thenBookingIsSavedFor(randomFirstName, lastName, price, DEPOSIT_NOT_PAID,
-                nextMonth(checkInDay, 1), nextMonth(checkOutDay, 1));
+                currentMonthOf(checkInDay, 1), currentMonthOf(checkOutDay, 1));
     }
 
     //Givens

@@ -1,6 +1,5 @@
 package hotelbookings.usecases;
 
-import hotelbookings.journey.tasks.checkBookingTask;
 import hotelbookings.journey.tasks.makeBookingTask;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,10 +13,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static hotelbookings.journey.tasks.checkBookingTask.assertSavedBooking;
+import static hotelbookings.journey.tasks.makeBookingTask.fillsInFormWithoutDates;
+import static hotelbookings.journey.tasks.makeBookingTask.saveBookingFor;
 import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.By.xpath;
 
 public class AutomatedTests {
+
+    protected final int PREVIOUS_MONTH = -1;
+    protected final int CURRENT_MONTH = 0;
 
     private static final String TEST_URL = "http://hotel-test.equalexperts.io";
     private static final String WEB_DRIVER = "webdriver.chrome.driver";
@@ -58,11 +63,11 @@ public class AutomatedTests {
                                          String checkIn, String checkOut) {
         givenUserIsOnTheHotelBookingForm();
 
-        makeBookingTask.saveBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
+        saveBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     protected void givenUserFillsInBookingForm(String firstName, String lastName, String price, String depositPaid) {
-        makeBookingTask.fillsInFormWithoutDates(firstName, lastName, price, depositPaid);
+        fillsInFormWithoutDates(firstName, lastName, price, depositPaid);
     }
 
     //Whens
@@ -73,7 +78,7 @@ public class AutomatedTests {
     //Thens
     protected void thenBookingIsSavedFor(String firstName, String lastName, String price, String deposit,
                                          String checkIn, String checkOut) {
-        checkBookingTask.assertSavedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
+        assertSavedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     //commons
@@ -81,12 +86,7 @@ public class AutomatedTests {
         driver.navigate().to(url);
     }
 
-    protected String currentMonth(int day) {
-        LocalDate currentTime = LocalDate.now();
-        return currentTime.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
-    }
-
-    protected String nextMonth(int day, int month) {
+    protected String currentMonthOf(int day, int month) {
         LocalDate currentTime = LocalDate.now().plusMonths(month);
         return currentTime.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
     }
