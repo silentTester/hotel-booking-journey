@@ -23,9 +23,8 @@ public class checkBookingTask extends AutomatedTests {
         assertEquals(expectedBooking, savedBooking);
 
         String attributeId = ReadingAction.getAttributeIdFrom(HotelPage.getBookingAttributeIdSelector(firstName, lastName, price, deposit, checkIn, checkOut));
-        assertTrue(DisplayedAction.displayedOn(HotelPage.deleteBooking(attributeId)));
+        assertTrue(DisplayedAction.displayedOn(HotelPage.buttonDelete(attributeId)));
     }
-
 
     public static void assertBookingIsDeleted(String firstName, String lastName, String price, String deposit,
                                               String checkIn, String checkOut) {

@@ -1,4 +1,4 @@
-package hotelbookings.journey;
+package hotelbookings.bugs;
 
 import hotelbookings.journey.tasks.pickBookingDateTask;
 import hotelbookings.usecases.AutomatedTests;

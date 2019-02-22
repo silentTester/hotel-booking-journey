@@ -12,7 +12,7 @@ public class cancelBookingTask extends AutomatedTests {
         String attributeId = ReadingAction.getAttributeIdFrom(
                 HotelPage.getBookingAttributeIdSelector(firstName, lastName, price, deposit, checkIn, checkOut));
 
-        ClickingAction.clickOn(HotelPage.deleteBooking(attributeId));
+        ClickingAction.clickOn(HotelPage.buttonDelete(attributeId));
     }
 
 }

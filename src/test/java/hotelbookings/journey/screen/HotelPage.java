@@ -3,17 +3,24 @@ package hotelbookings.journey.screen;
 import org.openqa.selenium.By;
 
 public class HotelPage extends JSCalenderApplet {
-    public static By setFirstName = By.id("firstname");
-    public static By setLastName = By.id("lastname");
-    public static By setPrice = By.id("totalprice");
-    public static By setDeposit = By.id("depositpaid");
-    public static By setCheckIn = By.id("checkin");
-    public static By setCheckOut = By.id("checkout");
-    public static By saveButton = By.xpath("//input[@value=\" Save \"]");
+    public static By fieldFirstName = By.id("firstname");
+    public static By fieldLastName = By.id("lastname");
+    public static By fieldPrice = By.id("totalprice");
+    public static By fieldDeposit = By.id("depositpaid");
+    public static By fieldCheckIn = By.id("checkin");
+    public static By fieldCheckOut = By.id("checkout");
+
+    public static By buttonSave = By.xpath("//input[@value=\" Save \"]");
 
     private static String getRowBy = "//div[contains(@class, 'row')][contains(., '";
     private static String andContains = "') and contains(., '";
     private static String getDeleteRowBy = "//input[@type='button' and @onclick='deleteBooking(";
+
+    public static By buttonDelete(String attributeId) {
+        String selector = getDeleteRowBy + attributeId + ")']";
+
+        return By.xpath(selector);
+    }
 
     public static By getBookingSelector(String firstName, String lastName, String price, String deposit, String checkIn, String checkOut) {
         String selector = getRowBy + firstName + andContains + lastName + andContains + price +
@@ -33,11 +40,6 @@ public class HotelPage extends JSCalenderApplet {
         return By.xpath(selector);
     }
 
-    public static By deleteBooking(String attributeId) {
-        String selector = getDeleteRowBy + attributeId + ")']";
-
-        return By.xpath(selector);
-    }
 
 }
 
