@@ -1,8 +1,9 @@
 package hotelbookings.journey.screen;
 
+import hotelbookings.journey.JavaScriptApplet.CalendarJSApplet;
 import org.openqa.selenium.By;
 
-public class HotelPage {
+public class HotelPage extends CalendarJSApplet {
     public static By setFirstName = By.id("firstname");
     public static By setLastName = By.id("lastname");
     public static By setPrice = By.id("totalprice");
@@ -16,18 +17,21 @@ public class HotelPage {
     private static String getDeleteRowBy = "//input[@type='button' and @onclick='deleteBooking(";
 
     public static By getBookingSelector(String firstName, String lastName, String price, String deposit, String checkIn, String checkOut) {
-        String bookingSelector = getRowBy + firstName + andContains + lastName + andContains + price +
+        String selector = getRowBy + firstName + andContains + lastName + andContains + price +
                 andContains + deposit + andContains + checkIn + andContains + checkOut + "')]";
 
-        return By.xpath(bookingSelector);
+        return By.xpath(selector);
     }
 
     public static By getBookingAttributeIdSelector(String firstName, String lastName, String price, String deposit,
                                                    String checkIn, String checkOut) {
-        String bookingAttributeIdSelector = getRowBy + firstName + andContains + lastName + andContains + price +
-                andContains + deposit + andContains + checkIn + andContains + checkOut + "')]";
+        return getBookingSelector(firstName, lastName, price, deposit, checkIn, checkOut);
+    }
 
-        return By.xpath(bookingAttributeIdSelector);
+    public static By getBookingSelectorUsingNames(String firstName, String lastName) {
+        String selector = getRowBy + firstName + andContains + lastName + "')]";
+
+        return By.xpath(selector);
     }
 
     public static By deleteBooking(String attributeId) {

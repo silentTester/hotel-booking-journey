@@ -9,6 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.By.xpath;
 
@@ -18,8 +21,7 @@ public class AutomatedTests {
     private static final String WEB_DRIVER = "webdriver.chrome.driver";
     private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
     private static final String[] HEADLESS_MODE = {"--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors"};
-    private static final String[] NON_HEADLESS_MODE = {"--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors"};
-    private static final int TIME_OUT_IN_SECONDS = 20;
+    private static final int TIME_OUT_IN_SECONDS = 10;
 
     protected static WebDriver driver;
     protected static WebDriverWait wait;
@@ -28,7 +30,7 @@ public class AutomatedTests {
     public static void init() {
         System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(NON_HEADLESS_MODE);
+        options.addArguments(HEADLESS_MODE);
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
     }
@@ -36,11 +38,6 @@ public class AutomatedTests {
     @AfterClass
     public static void tearDown() {
         driver.quit();
-    }
-
-    //commons
-    private static void userNavigatesToURL(String url) {
-        driver.navigate().to(url);
     }
 
     @Before
@@ -54,6 +51,21 @@ public class AutomatedTests {
 
         WebElement text = driver.findElement(xpath("//div[contains(@class, 'jumbotron')]"));
         assertEquals("Hotel booking form", text.getText());
+    }
+
+    //commons
+    private static void userNavigatesToURL(String url) {
+        driver.navigate().to(url);
+    }
+
+    protected String currentMonth(int day) {
+        LocalDate currentTime = LocalDate.now();
+        return currentTime.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
+    }
+
+    protected String nextMonth(int day, int month) {
+        LocalDate currentTime = LocalDate.now().plusMonths(month);
+        return currentTime.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
     }
 
 }

@@ -18,4 +18,15 @@ public class makeBookingTask extends AutomatedTests {
         ClickingAction.clickOn(HotelPage.saveButton);
     }
 
+    public static void fillsInFormWithoutDates(String firstName, String lastName, String price, String deposit) {
+        TypingAction.textInput(HotelPage.setFirstName, firstName);
+        TypingAction.textInput(HotelPage.setLastName, lastName);
+        TypingAction.textInput(HotelPage.setPrice, price);
+        TypingAction.textInput(HotelPage.setDeposit, deposit);
+    }
+
+    public static void clickSave() {
+        ClickingAction.clickOn(HotelPage.saveButton);
+    }
+
 }
