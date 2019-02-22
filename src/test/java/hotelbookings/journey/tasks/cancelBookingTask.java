@@ -1,18 +1,20 @@
 package hotelbookings.journey.tasks;
 
-import hotelbookings.usecases.AutomatedTests;
-import hotelbookings.journey.actions.ClickingAction;
 import hotelbookings.journey.actions.ReadingAction;
 import hotelbookings.journey.screen.HotelPage;
 
-public class cancelBookingTask extends AutomatedTests {
+import static hotelbookings.journey.actions.ClickingAction.clickOn;
+import static hotelbookings.journey.screen.HotelPage.buttonDelete;
+import static hotelbookings.journey.screen.HotelPage.selectorByAttributeId;
 
-    public static void deleteBookingFor(String firstName, String lastName, String price, String deposit, String checkIn,
-                                        String checkOut) {
+public class cancelBookingTask {
+
+    public static void cancelBookingFor(String firstName, String lastName, String price, String deposit,
+                                        String checkIn, String checkOut) {
         String attributeId = ReadingAction.getAttributeIdFrom(
-                HotelPage.selectorByAttributeId(firstName, lastName, price, deposit, checkIn, checkOut));
+                selectorByAttributeId(firstName, lastName, price, deposit, checkIn, checkOut));
 
-        ClickingAction.clickOn(HotelPage.buttonDelete(attributeId));
+        clickOn(buttonDelete(attributeId));
     }
 
 }

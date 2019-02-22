@@ -1,11 +1,13 @@
 package hotelbookings.bugs;
 
-import hotelbookings.journey.tasks.checkBookingTask;
-import hotelbookings.journey.tasks.pickBookingDateTask;
 import hotelbookings.usecases.AutomatedTests;
 import org.junit.Test;
 
 import java.util.UUID;
+
+import static hotelbookings.journey.tasks.checkBookingTask.assertInvalidSavedBooking;
+import static hotelbookings.journey.tasks.pickBookingDateTask.clickOnCalenderCheckInPreviousMonth;
+import static hotelbookings.journey.tasks.pickBookingDateTask.clickOnCalenderCurrentMonthForCheckOut;
 
 public class bugTests extends AutomatedTests {
 
@@ -52,16 +54,16 @@ public class bugTests extends AutomatedTests {
 
     //Givens
     private void givenUserClicksOnTheCalenderToCheckInForPreviousMonth(int checkIn) {
-        pickBookingDateTask.clickOnCalenderCheckInPreviousMonth(1, checkIn);
+        clickOnCalenderCheckInPreviousMonth(1, checkIn);
     }
 
     private void givenUserClicksOnTheCalenderToCheckOutForCurrentMonth(int checkOut) {
-        pickBookingDateTask.clickOnCalenderCurrentMonthForCheckOut(checkOut);
+        clickOnCalenderCurrentMonthForCheckOut(checkOut);
     }
 
     //Thens
     private void thenIncorrectBookingIsSaved(String firstName, String lastName) {
-        checkBookingTask.assertInvalidSavedBooking(firstName, lastName);
+        assertInvalidSavedBooking(firstName, lastName);
     }
 
 }

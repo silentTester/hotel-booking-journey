@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.UUID;
 
+import static hotelbookings.journey.tasks.checkBookingTask.assertUnsavedBooking;
+
 public class sadPathTests extends AutomatedTests {
 
     private static final String DEPOSIT_PAID = "true";
@@ -25,7 +27,7 @@ public class sadPathTests extends AutomatedTests {
     }
 
     private void thenBookingIsNotSavedFor(String firstName, String lastName) {
-        checkBookingTask.assertUnsavedBooking(firstName, lastName);
+        assertUnsavedBooking(firstName, lastName);
     }
 
 }

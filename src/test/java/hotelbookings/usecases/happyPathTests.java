@@ -1,11 +1,12 @@
 package hotelbookings.usecases;
 
-import hotelbookings.journey.tasks.cancelBookingTask;
-import hotelbookings.journey.tasks.checkBookingTask;
-import hotelbookings.journey.tasks.pickBookingDateTask;
 import org.junit.Test;
 
 import java.util.UUID;
+
+import static hotelbookings.journey.tasks.cancelBookingTask.cancelBookingFor;
+import static hotelbookings.journey.tasks.checkBookingTask.*;
+import static hotelbookings.journey.tasks.pickBookingDateTask.*;
 
 
 public class happyPathTests extends AutomatedTests {
@@ -121,39 +122,39 @@ public class happyPathTests extends AutomatedTests {
     }
 
     private void givenUserClicksOnTheCalenderFor(int checkIn, int checkOut) {
-        pickBookingDateTask.clickOnCalenderCurrentMonthForCheckIn(checkIn);
+        clickOnCalenderCurrentMonthForCheckIn(checkIn);
 
-        pickBookingDateTask.clickOnCalenderCurrentMonthForCheckOut(checkOut);
+        clickOnCalenderCurrentMonthForCheckOut(checkOut);
     }
 
     private void givenUserClicksOnTheCalenderToCheckInForNextMonth(int checkIn) {
-        pickBookingDateTask.clickOnCalenderCheckInMonth(1, checkIn);
+        clickOnCalenderCheckInMonth(1, checkIn);
     }
 
     private void givenUserClicksOnTheCalenderToCheckOutForNextMonth(int checkOut) {
-        pickBookingDateTask.clickOnCalenderCheckOutMonth(1, checkOut);
+        clickOnCalenderCheckOutMonth(1, checkOut);
     }
 
     //Whens
     private void whenUserDeletesBooking(String firstName, String lastName, String price, String deposit,
                                         String checkIn, String checkOut) {
-        cancelBookingTask.deleteBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
+        cancelBookingFor(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     //Thens
     private void thenBookingIsDeletedFor(String firstName, String lastName, String price, String deposit,
                                          String checkIn, String checkOut) {
-        checkBookingTask.assertDeletedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
+        assertDeletedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     private void thenDuplicateBookingsExistFor(String firstName, String lastName, String price, String deposit,
                                                String checkIn, String checkOut) {
-        checkBookingTask.assertNumberDuplicateBookings(firstName, lastName, price, deposit,
+        assertNumberDuplicateBookings(firstName, lastName, price, deposit,
                 checkIn, checkOut, NUMBER_OF_DUPLICATES);
     }
 
     private void thenThereAreMultipleReservationsBookedFor(String firstName, String lastName) {
-        checkBookingTask.assertNumberUniqueBookings(firstName, lastName, NUMBER_OF_DUPLICATES);
+        assertNumberUniqueBookings(firstName, lastName, NUMBER_OF_DUPLICATES);
     }
 
 }

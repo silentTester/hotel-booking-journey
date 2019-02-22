@@ -1,48 +1,47 @@
 package hotelbookings.journey.tasks;
 
-import hotelbookings.journey.screen.JSCalenderApplet;
-import hotelbookings.usecases.AutomatedTests;
+import static hotelbookings.journey.actions.ClickingAction.clickOn;
+import static hotelbookings.journey.screen.HotelPage.fieldCheckIn;
+import static hotelbookings.journey.screen.HotelPage.fieldCheckOut;
+import static hotelbookings.journey.screen.JSCalenderApplet.*;
 
-import hotelbookings.journey.actions.ClickingAction;
-import hotelbookings.journey.screen.HotelPage;
-
-public class pickBookingDateTask extends AutomatedTests {
+public class pickBookingDateTask {
 
     public static void clickOnCalenderCurrentMonthForCheckIn(int day) {
-        ClickingAction.clickOn(HotelPage.fieldCheckIn);
-        ClickingAction.clickOn(HotelPage.getCalenderDay(day));
+        clickOn(fieldCheckIn);
+        clickOn(selectorByCalenderDay(day));
     }
 
     public static void clickOnCalenderCurrentMonthForCheckOut(int day) {
-        ClickingAction.clickOn(HotelPage.fieldCheckOut);
-        ClickingAction.clickOn(HotelPage.getCalenderDay(day));
+        clickOn(fieldCheckOut);
+        clickOn(selectorByCalenderDay(day));
     }
 
     public static void clickOnCalenderCheckInMonth(int numberTimes, int day) {
-        ClickingAction.clickOn(HotelPage.fieldCheckIn);
+        clickOn(fieldCheckIn);
 
         for (int index = 0; index < numberTimes; index++) {
-            ClickingAction.clickOn(JSCalenderApplet.nextCalenderMonth());
+            clickOn(nextCalenderMonth());
         }
-        ClickingAction.clickOn(HotelPage.getCalenderDay(day));
+        clickOn(selectorByCalenderDay(day));
     }
 
     public static void clickOnCalenderCheckOutMonth(int numberTimes, int day) {
-        ClickingAction.clickOn(HotelPage.fieldCheckOut);
+        clickOn(fieldCheckOut);
 
         for (int index = 0; index < numberTimes; index++) {
-            ClickingAction.clickOn(JSCalenderApplet.nextCalenderMonth());
+            clickOn(nextCalenderMonth());
         }
-        ClickingAction.clickOn(HotelPage.getCalenderDay(day));
+        clickOn(selectorByCalenderDay(day));
     }
 
     public static void clickOnCalenderCheckInPreviousMonth(int numberTimes, int day) {
-        ClickingAction.clickOn(HotelPage.fieldCheckIn);
+        clickOn(fieldCheckIn);
 
         for (int index = 0; index < numberTimes; index++) {
-            ClickingAction.clickOn(JSCalenderApplet.previousCalenderMonth());
+            clickOn(previousCalenderMonth());
         }
-        ClickingAction.clickOn(HotelPage.getCalenderDay(day));
+        clickOn(selectorByCalenderDay(day));
     }
 
 }

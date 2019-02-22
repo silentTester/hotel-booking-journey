@@ -22,7 +22,6 @@ public class AutomatedTests {
     private static final String TEST_URL = "http://hotel-test.equalexperts.io";
     private static final String WEB_DRIVER = "webdriver.chrome.driver";
     private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
-    private static final String[] HEADLESS_MODE = {"--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors"};
     protected static final int TIME_OUT_IN_SECONDS = 15;
 
     protected static WebDriver driver;
@@ -31,9 +30,9 @@ public class AutomatedTests {
     @BeforeClass
     public static void init() {
         System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(HEADLESS_MODE);
-        driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        driver = new ChromeDriver(chromeOptions);
         wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
     }
 

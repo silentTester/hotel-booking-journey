@@ -4,21 +4,21 @@ import org.openqa.selenium.By;
 
 public class JSCalenderApplet {
 
-    private static String getDayBy = "//a[text()='";
-    private static By selectorNextMonth = By.xpath("//*[@class=\"ui-icon ui-icon-circle-triangle-e\"]");
-    private static By selectorPreviousMonth = By.xpath("//*[@class=\"ui-icon ui-icon-circle-triangle-w\"]");
+    private static String xpathDayBy = "//a[text()='";
+    private static By arrowNextMonth = By.xpath("//*[@class=\"ui-icon ui-icon-circle-triangle-e\"]");
+    private static By arrowPreviousMonth = By.xpath("//*[@class=\"ui-icon ui-icon-circle-triangle-w\"]");
 
-    public static By getCalenderDay(int day) {
-        String selector = getDayBy + day + "']";
+    public static By selectorByCalenderDay(int day) {
+        String selector = xpathDayBy + day + "']";
 
         return By.xpath(selector);
     }
 
     public static By nextCalenderMonth() {
-        return selectorNextMonth;
+        return arrowNextMonth;
     }
 
     public static By previousCalenderMonth() {
-        return selectorPreviousMonth;
+        return arrowPreviousMonth;
     }
 }
