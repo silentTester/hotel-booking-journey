@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import static hotelbookings.journey.tasks.cancelBookingTask.cancelBookingFor;
 import static hotelbookings.journey.tasks.checkBookingTask.*;
-import static hotelbookings.journey.tasks.pickBookingDatesTask.*;
-
+import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCheckInFor;
+import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCheckOutFor;
 
 public class happyPathTests extends AutomatedTests {
 
@@ -60,12 +60,14 @@ public class happyPathTests extends AutomatedTests {
         lastName = "CALENDAR_HAPPY_PATH";
 
         givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_PAID);
-        givenUserClicksOnTheCalenderFor(CHECK_IN_DAY, CHECK_OUT_DAY);
+        givenUserClicksOnCalenderCheckInFor(CHECK_IN_DAY, CURRENT_MONTH);
+        givenUserClicksOnCalenderCheckOutFor(CHECK_OUT_DAY, CURRENT_MONTH);
 
         whenUserSavesBooking();
 
         thenBookingIsSavedFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID,
-                currentMonthOf(CHECK_IN_DAY, CURRENT_MONTH), currentMonthOf(CHECK_OUT_DAY, CURRENT_MONTH));
+                formatDate(CHECK_IN_DAY, CURRENT_MONTH),
+                formatDate(CHECK_OUT_DAY, CURRENT_MONTH));
     }
 
     @Test
@@ -79,7 +81,8 @@ public class happyPathTests extends AutomatedTests {
         whenUserSavesBooking();
 
         thenBookingIsSavedFor(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
-                currentMonthOf(CHECK_IN_DAY, NEXT_MONTH), currentMonthOf(CHECK_OUT_DAY, NEXT_MONTH));
+                formatDate(CHECK_IN_DAY, NEXT_MONTH),
+                formatDate(CHECK_OUT_DAY, NEXT_MONTH));
     }
 
     //Givens
@@ -103,18 +106,12 @@ public class happyPathTests extends AutomatedTests {
         givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
     }
 
-    private void givenUserClicksOnTheCalenderFor(int checkIn, int checkOut) {
-        clickOnCalenderCurrentMonthForCheckIn(checkIn);
-
-        clickOnCalenderCurrentMonthForCheckOut(checkOut);
-    }
-
     private void givenUserClicksOnCalenderCheckInFor(int checkIn, int month) {
-        clickOnCalenderCheckInMonth(month, checkIn);
+        clickOnCalenderCheckInFor(checkIn, month);
     }
 
     private void givenUserClicksOnCalenderCheckOutFor(int checkOut, int month) {
-        clickOnCalenderCheckOutMonth(month, checkOut);
+        clickOnCalenderCheckOutFor(checkOut, month);
     }
 
     //Whens

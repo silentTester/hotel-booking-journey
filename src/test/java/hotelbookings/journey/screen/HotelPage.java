@@ -3,6 +3,8 @@ package hotelbookings.journey.screen;
 import org.openqa.selenium.By;
 
 public class HotelPage extends JSCalenderApplet {
+
+    public static By headerPage = By.xpath("//div[contains(@class, 'jumbotron')]");
     public static By fieldFirstName = By.id("firstname");
     public static By fieldLastName = By.id("lastname");
     public static By fieldPrice = By.id("totalprice");
@@ -36,13 +38,6 @@ public class HotelPage extends JSCalenderApplet {
 
     public static By selectorByName(String firstName, String lastName) {
         String selector = xpathRowBy + firstName + andContains + lastName + "')]";
-
-        return By.xpath(selector);
-    }
-
-    public static By selectorWithoutName(String price, String deposit, String checkIn, String checkOut) {
-        String selector = xpathRowBy + price + andContains + deposit +
-                checkIn + andContains + checkOut + "')]";
 
         return By.xpath(selector);
     }

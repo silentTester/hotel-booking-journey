@@ -58,7 +58,7 @@ public class sadPathTests extends AutomatedTests {
 
         whenUserSavesBooking();
 
-        thenBookingIsNotSavedUsing(PRICE, DEPOSIT_PAID, CHECK_IN_DATE, checkOutDate);
+        thenBookingIsNotSavedUsing(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, checkOutDate);
     }
 
     @Test
@@ -110,8 +110,9 @@ public class sadPathTests extends AutomatedTests {
         assertUnsavedBooking(firstName, lastName);
     }
 
-    private void thenBookingIsNotSavedUsing(String price, String deposit, String checkIn, String checkOut) {
-        assertWithoutNamesUnsavedBooking(price, deposit, checkIn, checkOut);
+    private void thenBookingIsNotSavedUsing(String firstName, String lastName, String price, String deposit,
+                                            String checkIn, String checkOut) {
+        assertWithoutNamesUnsavedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
 }

@@ -1,11 +1,9 @@
 package hotelbookings.usecases;
 
-import hotelbookings.journey.tasks.makeBookingTask;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,11 +11,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static hotelbookings.journey.actions.ReadingAction.getTextFrom;
+import static hotelbookings.journey.screen.HotelPage.headerPage;
 import static hotelbookings.journey.tasks.checkBookingTask.assertSavedBooking;
-import static hotelbookings.journey.tasks.makeBookingTask.fillsInFormWithoutDates;
-import static hotelbookings.journey.tasks.makeBookingTask.saveBookingFor;
+import static hotelbookings.journey.tasks.makeBookingTask.*;
 import static org.junit.Assert.assertEquals;
-import static org.openqa.selenium.By.xpath;
 
 public class AutomatedTests {
 
@@ -32,14 +30,14 @@ public class AutomatedTests {
     protected final int NUMBER_OF_DUPLICATES = 2;
     protected final int CHECK_IN_DAY = 21;
     protected final int CHECK_OUT_DAY = 23;
-    protected final int PREVIOUS_MONTH = -1;
     protected final int CURRENT_MONTH = 0;
     protected final int NEXT_MONTH = 1;
+    private static final int TIME_OUT_SECONDS = 10;
 
     private static final String TEST_URL = "http://hotel-test.equalexperts.io";
     private static final String WEB_DRIVER = "webdriver.chrome.driver";
     private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
-    protected static final int TIME_OUT_SECONDS = 10;
+    private final String HOTEL_BOOKING_FORM_HEADER = "Hotel booking form";
 
     protected static WebDriver driver;
     protected static WebDriverWait wait;
@@ -67,8 +65,7 @@ public class AutomatedTests {
     protected void givenUserIsOnTheHotelBookingForm() {
         userNavigatesToURL(TEST_URL);
 
-        WebElement text = driver.findElement(xpath("//div[contains(@class, 'jumbotron')]"));
-        assertEquals("Hotel booking form", text.getText());
+        assertEquals(HOTEL_BOOKING_FORM_HEADER, getTextFrom(headerPage));
     }
 
     protected void givenUserMakesBooking(String firstName, String lastName, String price, String deposit,
@@ -84,7 +81,7 @@ public class AutomatedTests {
 
     //Whens
     protected void whenUserSavesBooking() {
-        makeBookingTask.clickSave();
+        clickSave();
     }
 
     //Thens
@@ -98,7 +95,7 @@ public class AutomatedTests {
         driver.navigate().to(url);
     }
 
-    protected String currentMonthOf(int day, int month) {
+    protected String formatDate(int day, int month) {
         LocalDate currentTime = LocalDate.now().plusMonths(month);
         return currentTime.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
     }

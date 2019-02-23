@@ -48,8 +48,9 @@ public class checkBookingTask {
         assertFalse(isBookingFound(selectorByName(firstName, lastName)));
     }
 
-    public static void assertWithoutNamesUnsavedBooking(String price, String deposit, String checkIn, String checkOut) {
-        assertFalse(isBookingFound(selectorWithoutName(price, deposit, checkIn, checkOut)));
+    public static void assertWithoutNamesUnsavedBooking(String firstName, String lastName, String price, String deposit,
+                                                        String checkIn, String checkOut) {
+        assertFalse(isBookingFound(selectorByReservation(firstName, lastName, price, deposit, checkIn, checkOut)));
     }
 
 }

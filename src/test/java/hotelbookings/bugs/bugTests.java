@@ -7,11 +7,11 @@ import org.junit.Test;
 import java.util.UUID;
 
 import static hotelbookings.journey.tasks.checkBookingTask.assertInvalidSavedBooking;
-import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCheckInPreviousMonth;
-import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCurrentMonthForCheckOut;
 
 public class bugTests extends AutomatedTests {
 
+    private final String PAST_CHECK_IN_DATE = "2018-04-07";
+    private final String PAST_CHECK_OUT_DATE = "2018-04-09";
     private final String INTEGER_CHECK_OUT_DATE = "1270231";
     private final String INTEGER_CHECK_IN_DATE = "1292192";
     private final String INVALID_CHECK_OUT_DATE = "2019-02-31";
@@ -25,21 +25,21 @@ public class bugTests extends AutomatedTests {
     public void shouldNotMakeBookingInThePast() {
         lastName = "BUG_PATH_PREVIOUS_MONTH";
 
-        givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID);
-        givenUserClicksOnTheCalenderToCheckInForPreviousMonth(CHECK_IN_DAY);
-        givenUserClicksOnTheCalenderToCheckOutForCurrentMonth(CHECK_OUT_DAY);
+        givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, PAST_CHECK_IN_DATE,
+                PAST_CHECK_OUT_DATE);
 
         whenUserSavesBooking();
 
-        thenIncorrectBookingSavedWithPastCheckInDate(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
-                currentMonthOf(CHECK_IN_DAY, PREVIOUS_MONTH), currentMonthOf(CHECK_OUT_DAY, CURRENT_MONTH));
+        thenIncorrectBookingSavedWithPastDates(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, PAST_CHECK_IN_DATE,
+                PAST_CHECK_OUT_DATE);
     }
 
     @Test
     public void shouldNotMakeBookingUsingIntegersAsDates() {
         lastName = "BUG_PATH_INTEGER_DATES";
 
-        givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, INTEGER_CHECK_IN_DATE, INTEGER_CHECK_OUT_DATE);
+        givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, INTEGER_CHECK_IN_DATE,
+                INTEGER_CHECK_OUT_DATE);
 
         thenIncorrectBookingSaved(randomFirstName, lastName);
     }
@@ -55,22 +55,13 @@ public class bugTests extends AutomatedTests {
         thenIncorrectBookingSaved(randomFirstName, lastName);
     }
 
-    //Givens
-    private void givenUserClicksOnTheCalenderToCheckInForPreviousMonth(int checkIn) {
-        clickOnCalenderCheckInPreviousMonth(1, checkIn);
-    }
-
-    private void givenUserClicksOnTheCalenderToCheckOutForCurrentMonth(int checkOut) {
-        clickOnCalenderCurrentMonthForCheckOut(checkOut);
-    }
-
     //Thens
     private void thenIncorrectBookingSaved(String firstName, String lastName) {
         assertInvalidSavedBooking(firstName, lastName);
     }
 
-    private void thenIncorrectBookingSavedWithPastCheckInDate(String firstName, String lastName, String price, String deposit,
-                                                              String checkIn, String checkOut) {
+    private void thenIncorrectBookingSavedWithPastDates(String firstName, String lastName, String price, String deposit,
+                                                        String checkIn, String checkOut) {
         thenBookingIsSavedFor(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
