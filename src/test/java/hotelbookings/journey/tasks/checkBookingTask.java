@@ -22,7 +22,7 @@ public class checkBookingTask {
                 checkIn, checkOut)))));
     }
 
-    public static void assertBookingDeleted(String firstName, String lastName, String price, String deposit,
+    public static void assertDeletedBooking(String firstName, String lastName, String price, String deposit,
                                             String checkIn, String checkOut) {
         assertTrue(isBookingNotFound(selectorByReservation(firstName, lastName, price, deposit, checkIn, checkOut)));
     }
@@ -48,7 +48,7 @@ public class checkBookingTask {
         assertFalse(isBookingFound(selectorByName(firstName, lastName)));
     }
 
-    public static void assertUnsavedBookingWithoutNames(String price, String deposit, String checkIn, String checkOut) {
+    public static void assertWithoutNamesUnsavedBooking(String price, String deposit, String checkIn, String checkOut) {
         assertFalse(isBookingFound(selectorWithoutName(price, deposit, checkIn, checkOut)));
     }
 

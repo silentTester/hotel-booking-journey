@@ -126,7 +126,7 @@ public class happyPathTests extends AutomatedTests {
     //Thens
     private void thenBookingIsDeletedFor(String firstName, String lastName, String price, String deposit,
                                          String checkIn, String checkOut) {
-        assertBookingDeleted(firstName, lastName, price, deposit, checkIn, checkOut);
+        assertDeletedBooking(firstName, lastName, price, deposit, checkIn, checkOut);
     }
 
     private void thenDuplicateBookingsExistFor(String firstName, String lastName, String price, String deposit,

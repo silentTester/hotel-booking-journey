@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.UUID;
 
 import static hotelbookings.journey.tasks.checkBookingTask.assertUnsavedBooking;
-import static hotelbookings.journey.tasks.checkBookingTask.assertUnsavedBookingWithoutNames;
+import static hotelbookings.journey.tasks.checkBookingTask.assertWithoutNamesUnsavedBooking;
 
 public class sadPathTests extends AutomatedTests {
 
@@ -111,7 +111,7 @@ public class sadPathTests extends AutomatedTests {
     }
 
     private void thenBookingIsNotSavedUsing(String price, String deposit, String checkIn, String checkOut) {
-        assertUnsavedBookingWithoutNames(price, deposit, checkIn, checkOut);
+        assertWithoutNamesUnsavedBooking(price, deposit, checkIn, checkOut);
     }
 
 }
