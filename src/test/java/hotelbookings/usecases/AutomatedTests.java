@@ -34,6 +34,7 @@ public class AutomatedTests {
     protected final int CHECK_OUT_DAY = 23;
     protected final int PREVIOUS_MONTH = -1;
     protected final int CURRENT_MONTH = 0;
+    protected final int NEXT_MONTH = 1;
 
     private static final String TEST_URL = "http://hotel-test.equalexperts.io";
     private static final String WEB_DRIVER = "webdriver.chrome.driver";

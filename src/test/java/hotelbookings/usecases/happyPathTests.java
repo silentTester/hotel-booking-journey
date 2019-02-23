@@ -73,13 +73,13 @@ public class happyPathTests extends AutomatedTests {
         lastName = "CALENDAR_NEXT_MONTH_HAPPY_PATH";
 
         givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID);
-        givenUserClicksOnTheCalenderToCheckInForNextMonth(CHECK_IN_DAY);
-        givenUserClicksOnTheCalenderToCheckOutForNextMonth(CHECK_OUT_DAY);
+        givenUserClicksOnCalenderCheckInFor(CHECK_IN_DAY, NEXT_MONTH);
+        givenUserClicksOnCalenderCheckOutFor(CHECK_OUT_DAY, NEXT_MONTH);
 
         whenUserSavesBooking();
 
         thenBookingIsSavedFor(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
-                currentMonthOf(CHECK_IN_DAY, 1), currentMonthOf(CHECK_OUT_DAY, 1));
+                currentMonthOf(CHECK_IN_DAY, NEXT_MONTH), currentMonthOf(CHECK_OUT_DAY, NEXT_MONTH));
     }
 
     //Givens
@@ -109,12 +109,12 @@ public class happyPathTests extends AutomatedTests {
         clickOnCalenderCurrentMonthForCheckOut(checkOut);
     }
 
-    private void givenUserClicksOnTheCalenderToCheckInForNextMonth(int checkIn) {
-        clickOnCalenderCheckInMonth(1, checkIn);
+    private void givenUserClicksOnCalenderCheckInFor(int checkIn, int month) {
+        clickOnCalenderCheckInMonth(month, checkIn);
     }
 
-    private void givenUserClicksOnTheCalenderToCheckOutForNextMonth(int checkOut) {
-        clickOnCalenderCheckOutMonth(1, checkOut);
+    private void givenUserClicksOnCalenderCheckOutFor(int checkOut, int month) {
+        clickOnCalenderCheckOutMonth(month, checkOut);
     }
 
     //Whens

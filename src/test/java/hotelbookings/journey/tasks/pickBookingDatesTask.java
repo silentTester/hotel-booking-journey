@@ -17,10 +17,10 @@ public class pickBookingDatesTask {
         clickOn(selectorByCalenderDay(day));
     }
 
-    public static void clickOnCalenderCheckInMonth(int numberTimes, int day) {
+    public static void clickOnCalenderCheckInMonth(int numberClicks, int day) {
         clickOn(fieldCheckIn);
 
-        for (int index = 0; index < numberTimes; index++) {
+        for (int index = 0; index < numberClicks; index++) {
             clickOn(nextCalenderMonth());
         }
         clickOn(selectorByCalenderDay(day));
