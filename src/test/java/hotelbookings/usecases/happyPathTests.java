@@ -13,6 +13,13 @@ import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderCh
 public class happyPathTests extends AutomatedTests {
 
     private final String LAST_NAME = "HAPPY_PATH";
+    private final String UNIQUE_CHECK_IN_DATE = "2019-11-11";
+    private final String UNIQUE_CHECK_OUT_DATE = "2019-11-13";
+    private final int NUMBER_OF_DUPLICATES = 2;
+    private final int CHECK_IN_DAY = 21;
+    private final int CHECK_OUT_DAY = 23;
+    private final int CURRENT_MONTH = 0;
+    private final int NEXT_MONTH = 1;
 
     @Before
     public void setUpData() {
@@ -28,18 +35,16 @@ public class happyPathTests extends AutomatedTests {
 
     @Test
     public void shouldCancelABooking() {
-        lastName = "DELETE_HAPPY_PATH";
+        givenABookingExistsFor(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        givenABookingExistsFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
+        whenUserDeletesBooking(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        whenUserDeletesBooking(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
-
-        thenBookingIsDeletedFor(randomFirstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
+        thenBookingIsDeletedFor(randomFirstName, LAST_NAME, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
     }
 
     @Test
     public void shouldMakeDuplicateBookings() {
-        lastName = "DUPLICATE_HAPPY_PATH";
+        lastName = "HAPPY_PATH_DUPLICATE";
 
         givenDuplicateReservationsFor(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
@@ -48,7 +53,7 @@ public class happyPathTests extends AutomatedTests {
 
     @Test
     public void shouldMakeMultipleUniqueBookings() {
-        lastName = "UNIQUE_HAPPY_PATH";
+        lastName = "HAPPY_PATH_UNIQUE";
 
         givenMultipleUniqueReservationsFor(randomFirstName, lastName);
 
@@ -57,7 +62,7 @@ public class happyPathTests extends AutomatedTests {
 
     @Test
     public void shouldMakeBookingUsingCalendar() {
-        lastName = "CALENDAR_HAPPY_PATH";
+        lastName = "HAPPY_PATH_CALENDAR";
 
         givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_PAID);
         givenUserClicksOnCalenderCheckInFor(CHECK_IN_DAY, CURRENT_MONTH);
@@ -72,7 +77,7 @@ public class happyPathTests extends AutomatedTests {
 
     @Test
     public void shouldMakeBookingUsingCalendarForNextMonth() {
-        lastName = "CALENDAR_NEXT_MONTH_HAPPY_PATH";
+        lastName = "HAPPY_PATH_CALENDAR_MONTH";
 
         givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID);
         givenUserClicksOnCalenderCheckInFor(CHECK_IN_DAY, NEXT_MONTH);
@@ -103,7 +108,7 @@ public class happyPathTests extends AutomatedTests {
     private void givenMultipleUniqueReservationsFor(String firstName, String lastName) {
         givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
 
-        givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_NOT_PAID, CHECK_IN_DATE, CHECK_OUT_DATE);
+        givenABookingExistsFor(firstName, lastName, PRICE, DEPOSIT_NOT_PAID, UNIQUE_CHECK_IN_DATE, UNIQUE_CHECK_OUT_DATE);
     }
 
     private void givenUserClicksOnCalenderCheckInFor(int checkIn, int month) {
@@ -128,8 +133,7 @@ public class happyPathTests extends AutomatedTests {
 
     private void thenDuplicateBookingsExistFor(String firstName, String lastName, String price, String deposit,
                                                String checkIn, String checkOut) {
-        assertNumberDuplicateBookings(firstName, lastName, price, deposit,
-                checkIn, checkOut, NUMBER_OF_DUPLICATES);
+        assertNumberDuplicateBookings(firstName, lastName, price, deposit, checkIn, checkOut, NUMBER_OF_DUPLICATES);
     }
 
     private void thenThereAreMultipleReservationsBookedFor(String firstName, String lastName) {

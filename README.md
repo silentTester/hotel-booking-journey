@@ -10,11 +10,11 @@ This project contains automated tests for this website only: http://hotel-test.e
 - Chrome driver
 - Java 1.8
 
-I did not use any Acceptance Criteria test framework(e.g Cucumber, Yatspec).
-Tests are written using JUnit in a BDD style.
-A DDD style package structure is created to make tests easier to maintain and read.
-The tests are set to run against Chrome in headless mode for speed.
-I have attempted to implement the Journey pattern for the tests.
+- I did not use any Acceptance Criteria test framework(e.g Cucumber, Yatspec).
+- Tests are written using JUnit in a BDD style.
+- A DDD style package structure is created to make tests easier to maintain and read.
+- The tests are set to run against Chrome in headless mode for speed.
+- I have attempted a Journey style pattern for the tests. 
 
 **OBSERVATIONS:**
 
@@ -34,10 +34,10 @@ These are the list of bugs found.  I have written them as automated tests, once 
 - Allows incorrect names - No regex validation for text fields, e.g allows numbers for names.
 - Allows check-in/out dates to be an integer directly, makes the app treat that integer as a timestamp.
 - Allows check-out date to be before check-in date.
+- Allows bookings in the past.
 - Allows invalid check-in date e.g. 31-02-2019 which is converted to 03-03-2019.
 - Allows check-in/out dates from the past e.g. before current month or previous day.
-- Allows invalid/astronomical figures in price (e.g 23421342233232342).
-- Allows invalid/astronomical names.
+- Allows invalid/astronomical values e.g. price (2342134223342)& names.
 - Allows negative price e.g. -500.
 
 # Exploratory Tests
@@ -68,7 +68,7 @@ Test is ignored, since this is a applicable business scenario
 - Tests are run in headless mode.
 
 # HOWTO install Chromedriver (Mac OSX):
-- From Mac Terminal, with the appropriate user permissions:
+- From Mac Terminal, with the appropriate user permissions. Run:
 
 `brew tap homebrew/cask && brew cask install chromedriver`
 
@@ -77,7 +77,7 @@ Test is ignored, since this is a applicable business scenario
 `/usr/local/bin/chromedriver`
 
 # HOWTO run the tests:
-- From Mac Terminal, with the appropriate user permissions:
+- From Mac Terminal, with the appropriate user permissions. Run:
 
 `./gradlew clean build`
 
