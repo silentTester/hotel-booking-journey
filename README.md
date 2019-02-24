@@ -9,12 +9,12 @@ This project contains automated tests for this website only: http://hotel-test.e
 - JUnit
 - Chrome driver
 - Java 1.8
-
-- I did not use any Acceptance Criteria test framework(e.g Cucumber, Yatspec).
-- Tests are written using JUnit in a BDD style.
-- A DDD style package structure is created to make tests easier to maintain and read.
-- The tests are set to run against Chrome in headless mode for speed.
-- I have attempted a Journey style pattern for the tests. 
+ 
+I did not use any Acceptance Criteria test framework(e.g Cucumber, Yatspec).
+Tests are written using JUnit in a BDD style.
+A DDD style package structure is created to make tests easier to maintain and read.
+The tests are set to run against Chrome in headless mode for speed.
+I have attempted a Journey style pattern for the tests. 
 
 **OBSERVATIONS:**
 
@@ -26,7 +26,6 @@ This project contains automated tests for this website only: http://hotel-test.e
 
 - No cross & mobile-browser testing was done.
 - Tests have been developed and tested on Mac OSX.  It has not been tested on Linux or Windows.
-- All Test data created (Happy & Bug paths) via the automated tests are  *deleted before next test package is run*, i.e. `BeforeClass`
 
 # Bugs Path Tests
 These are the list of bugs found.  I have written them as automated tests, once fixed can be re-run again and even refactored into Sad Path Tests, i.e "Should not allow".
@@ -40,11 +39,6 @@ These are the list of bugs found.  I have written them as automated tests, once 
 - Allows invalid/astronomical values e.g. price (2342134223342)& names.
 - Allows negative price e.g. -500.
 
-# Exploratory Tests
-Test is ignored, since this is a applicable business scenario
-
-- Allow to make duplicate bookings.
-
 # Sad Path Tests:
 - Should not allow to book if both dates are missing. 
 - Should not allow to book if Check-in date is missing.
@@ -53,7 +47,7 @@ Test is ignored, since this is a applicable business scenario
 - Should not allow to book if First name is missing.
 - Should not allow to book if Last name is missing.
 - Should not allow to book if price is missing.
-- Should not allow to book if invalid price is used.
+- Should not allow to book if price with invalid character, e.g. #999. 
 
 # Happy Path Tests
 - Should allow to cancel/delete a booking.
