@@ -89,8 +89,13 @@ public class AutomatedTests {
     }
 
     protected String formatDate(int day, int month) {
-        LocalDate currentTime = LocalDate.now().plusMonths(month);
-        return currentTime.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
+        LocalDate localDate = LocalDate.now().plusMonths(month);
+        return localDate.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
+    }
+
+    protected String formatDateForPast(int day, int month) {
+        LocalDate localDate = LocalDate.now().minusMonths(month);
+        return localDate.format(DateTimeFormatter.ofPattern("YYYY-MM-" + String.format("%02d", day)));
     }
 
 }

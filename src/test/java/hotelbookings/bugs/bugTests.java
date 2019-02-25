@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.UUID;
 
 import static hotelbookings.journey.tasks.checkBookingTask.assertInvalidSavedBooking;
+import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderPreviousMonthCheckInFor;
+import static hotelbookings.journey.tasks.pickBookingDatesTask.clickOnCalenderPreviousMonthCheckOutFor;
 
 public class bugTests extends AutomatedTests {
 
@@ -23,7 +25,7 @@ public class bugTests extends AutomatedTests {
 
     @Test
     public void shouldNotMakeBookingInThePast() {
-        lastName = "BUG_PATH_BOOKING_PAST";
+        lastName = "BUG_PATH_BOOKING_PAST_LAST_YEAR";
 
         givenUserMakesBooking(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, PAST_CHECK_IN_DATE,
                 PAST_CHECK_OUT_DATE);
@@ -32,6 +34,24 @@ public class bugTests extends AutomatedTests {
 
         thenIncorrectBookingSavedWithPastDates(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID, PAST_CHECK_IN_DATE,
                 PAST_CHECK_OUT_DATE);
+    }
+
+    @Test
+    public void shouldNotMakeBookingInThePastUsingCalender() {
+        lastName = "BUG_PATH_BOOKING_PAST_CALENDER";
+        final int checkIn = 23;
+        final int checkOut = 25;
+        final int PREVIOUS_MONTH = 1;
+        final int CURRENT_MONTH = 0;
+
+        givenUserFillsInBookingForm(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID);
+        givenUserClicksOnCalenderCheckInFor(checkIn, PREVIOUS_MONTH);
+        givenUserClicksOnCalenderCheckOutFor(checkOut, CURRENT_MONTH);
+
+        whenUserSavesBooking();
+
+        thenIncorrectBookingSavedWithPastDates(randomFirstName, lastName, PRICE, DEPOSIT_NOT_PAID,
+                formatDateForPast(checkIn, PREVIOUS_MONTH), formatDateForPast(checkOut, CURRENT_MONTH));
     }
 
     @Test
@@ -91,6 +111,15 @@ public class bugTests extends AutomatedTests {
         whenUserSavesBooking();
 
         thenIncorrectBookingSaved(randomFirstName, lastName);
+    }
+
+    //Givens
+    private void givenUserClicksOnCalenderCheckInFor(int checkIn, int month) {
+        clickOnCalenderPreviousMonthCheckInFor(checkIn, month);
+    }
+
+    private void givenUserClicksOnCalenderCheckOutFor(int checkOut, int month) {
+        clickOnCalenderPreviousMonthCheckOutFor(checkOut, month);
     }
 
     //Thens

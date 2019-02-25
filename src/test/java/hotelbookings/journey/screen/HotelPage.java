@@ -13,21 +13,20 @@ public class HotelPage extends JSCalenderApplet {
     public static By fieldCheckOut = By.id("checkout");
     public static By buttonSave = By.xpath("//input[@value=\" Save \"]");
 
-    private static String xpathRowBy = "//div[contains(@class, 'row')][contains(., '";
-    private static String andContains = "') and contains(., '";
-    private static String xpathDeleteRowBy = "//input[@type='button' and @onclick='deleteBooking(";
+    private static final String xpathRowBy = "//div[contains(@class, 'row')][contains(., '";
+    private static final String andContains = "') and contains(., '";
+    private static final String xpathDeleteRowBy = "//input[@type='button' and @onclick='deleteBooking(";
+    private static final String closeSelector = "')]";
 
     public static By buttonDelete(String attributeId) {
         String selector = xpathDeleteRowBy + attributeId + ")']";
-
         return By.xpath(selector);
     }
 
     public static By selectorByReservation(String firstName, String lastName, String price, String deposit,
                                            String checkIn, String checkOut) {
         String selector = xpathRowBy + firstName + andContains + lastName + andContains + price +
-                andContains + deposit + andContains + checkIn + andContains + checkOut + "')]";
-
+                andContains + deposit + andContains + checkIn + andContains + checkOut + closeSelector;
         return By.xpath(selector);
     }
 
@@ -37,8 +36,7 @@ public class HotelPage extends JSCalenderApplet {
     }
 
     public static By selectorByName(String firstName, String lastName) {
-        String selector = xpathRowBy + firstName + andContains + lastName + "')]";
-
+        String selector = xpathRowBy + firstName + andContains + lastName + closeSelector;
         return By.xpath(selector);
     }
 

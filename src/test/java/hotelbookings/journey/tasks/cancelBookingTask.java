@@ -12,7 +12,6 @@ public class cancelBookingTask {
                                         String checkIn, String checkOut) {
         String attributeId = ReadingAction.getAttributeIdFrom(
                 selectorByAttributeId(firstName, lastName, price, deposit, checkIn, checkOut));
-
         clickOn(buttonDelete(attributeId));
     }
 
