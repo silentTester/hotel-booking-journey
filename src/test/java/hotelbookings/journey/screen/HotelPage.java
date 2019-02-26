@@ -30,11 +30,6 @@ public class HotelPage extends JSCalenderApplet {
         return By.xpath(selector);
     }
 
-    public static By selectorByAttributeId(String firstName, String lastName, String price, String deposit,
-                                           String checkIn, String checkOut) {
-        return selectorByReservation(firstName, lastName, price, deposit, checkIn, checkOut);
-    }
-
     public static By selectorByName(String firstName, String lastName) {
         String selector = xpathRowBy + firstName + andContains + lastName + closeSelector;
         return By.xpath(selector);

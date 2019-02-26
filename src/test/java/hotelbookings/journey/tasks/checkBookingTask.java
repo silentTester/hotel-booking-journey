@@ -18,7 +18,7 @@ public class checkBookingTask {
                 checkOut)).replaceAll("\n", " ");
 
         assertEquals(expectedBooking, savedBooking);
-        assertTrue(isDisplayed(buttonDelete(getAttributeIdFrom(selectorByAttributeId(firstName, lastName, price, deposit,
+        assertTrue(isDisplayed(buttonDelete(getAttributeIdFrom(selectorByReservation(firstName, lastName, price, deposit,
                 checkIn, checkOut)))));
     }
 

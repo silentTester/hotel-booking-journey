@@ -1,4 +1,4 @@
-package hotelbookings.bugs;
+package hotelbookings.usecases.bugs;
 
 import hotelbookings.usecases.AutomatedTests;
 import org.junit.Before;

@@ -1,12 +1,7 @@
 package hotelbookings.usecases;
 
-import org.junit.AfterClass;
+import hotelbookings.configuration.WebDriverConfig;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,37 +12,17 @@ import static hotelbookings.journey.tasks.checkBookingTask.assertSavedBooking;
 import static hotelbookings.journey.tasks.makeBookingTask.*;
 import static org.junit.Assert.assertEquals;
 
-public class AutomatedTests {
+public class AutomatedTests extends WebDriverConfig {
 
+    private final String HOTEL_BOOKING_FORM_HEADER = "Hotel booking form";
+    protected String randomFirstName;
     protected final String PRICE = "100.99";
     protected final String DEPOSIT_PAID = "true";
     protected final String DEPOSIT_NOT_PAID = "false";
     protected final String CHECK_IN_DATE = "2019-04-07";
     protected final String CHECK_OUT_DATE = "2019-04-09";
-
-    private static final String TEST_URL = "http://hotel-test.equalexperts.io";
-    private static final String WEB_DRIVER = "webdriver.chrome.driver";
-    protected static WebDriver driver;
-    protected static WebDriverWait wait;
-    private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
-    private static final int TIME_OUT_SECONDS = 10;
-    private final String HOTEL_BOOKING_FORM_HEADER = "Hotel booking form";
-    protected String randomFirstName;
     protected String lastName;
-
-    @BeforeClass
-    public static void init() {
-        System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
-        driver = new ChromeDriver(chromeOptions);
-        wait = new WebDriverWait(driver, TIME_OUT_SECONDS);
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        driver.quit();
-    }
+    private static final String TEST_URL = "http://hotel-test.equalexperts.io";
 
     @Before
     public void navigateToHotelPage() {

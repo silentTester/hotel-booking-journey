@@ -8,10 +8,7 @@ public class makeBookingTask {
 
     public static void saveBookingFor(String firstName, String lastName, String price, String deposit,
                                       String checkIn, String checkOut) {
-        textInput(fieldFirstName, firstName);
-        textInput(fieldLastName, lastName);
-        textInput(fieldPrice, price);
-        textInput(fieldDeposit, deposit);
+        fillsInFormWithoutDates(firstName, lastName, price, deposit);
         textInput(fieldCheckIn, checkIn);
         textInput(fieldCheckOut, checkOut);
 

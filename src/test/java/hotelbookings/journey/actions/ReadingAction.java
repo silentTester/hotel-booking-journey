@@ -1,9 +1,9 @@
 package hotelbookings.journey.actions;
 
-import hotelbookings.usecases.AutomatedTests;
+import hotelbookings.configuration.WebDriverConfig;
 import org.openqa.selenium.By;
 
-public class ReadingAction extends AutomatedTests {
+public class ReadingAction extends WebDriverConfig {
 
     public static String getTextFrom(By selector) {
         return driver.findElement(selector).getText();
