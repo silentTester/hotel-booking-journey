@@ -1,11 +1,11 @@
 package hotelbookings.journey.actions;
 
-import hotelbookings.configuration.WebDriverConfig;
+import hotelbookings.usecases.AutomatedTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class WaitingAction extends WebDriverConfig {
+public class WaitingAction extends AutomatedTests {
 
     public static Boolean isBookingFound(By selector) {
         try {

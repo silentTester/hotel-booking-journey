@@ -1,12 +1,18 @@
 package hotelbookings.journey.actions;
 
-import hotelbookings.configuration.WebDriverConfig;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class ClickingAction extends WebDriverConfig {
+public class ClickingAction {
+
+    private static WebDriver driver;
 
     public static void clickOn(By selector) {
         driver.findElement(selector).click();
+    }
+
+    public static void setWebDriver(WebDriver driver) {
+        ClickingAction.driver = driver;
     }
 
 }

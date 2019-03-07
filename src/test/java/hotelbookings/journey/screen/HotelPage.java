@@ -2,7 +2,7 @@ package hotelbookings.journey.screen;
 
 import org.openqa.selenium.By;
 
-public class HotelPage extends JSCalenderApplet {
+public class HotelPage {
 
     public static By headerPage = By.xpath("//div[contains(@class, 'jumbotron')]");
     public static By fieldFirstName = By.id("firstname");

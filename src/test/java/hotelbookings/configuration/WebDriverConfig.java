@@ -1,32 +1,33 @@
 package hotelbookings.configuration;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import hotelbookings.journey.actions.ClickingAction;
+import hotelbookings.journey.actions.DisplayedAction;
+import hotelbookings.journey.actions.ReadingAction;
+import hotelbookings.journey.actions.TypingAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverConfig {
 
-    private static final String WEB_DRIVER = "webdriver.chrome.driver";
-    private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
-    private static final int TIME_OUT_SECONDS = 5;
-    protected static WebDriver driver;
-    protected static WebDriverWait wait;
+    private final String WEB_DRIVER = "webdriver.chrome.driver";
+    private final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
 
-    @BeforeClass
-    public static void init() {
+
+    public WebDriver getWebDriver() {
         System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
-        driver = new ChromeDriver(chromeOptions);
-        wait = new WebDriverWait(driver, TIME_OUT_SECONDS);
+        WebDriver driver = new ChromeDriver(chromeOptions);
+        createActions(driver);
+        return driver;
     }
 
-    @AfterClass
-    public static void tearDown() {
-        driver.quit();
+    private void createActions(WebDriver driver) {
+        ClickingAction.setWebDriver(driver);
+        DisplayedAction.setWebDriver(driver);
+        ReadingAction.setWebDriver(driver);
+        TypingAction.setWebDriver(driver);
     }
 
 }

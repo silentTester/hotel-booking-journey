@@ -1,9 +1,11 @@
 package hotelbookings.journey.actions;
 
-import hotelbookings.configuration.WebDriverConfig;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class ReadingAction extends WebDriverConfig {
+public class ReadingAction {
+
+    private static WebDriver driver;
 
     public static String getTextFrom(By selector) {
         return driver.findElement(selector).getText();
@@ -13,4 +15,7 @@ public class ReadingAction extends WebDriverConfig {
         return driver.findElement(selector).getAttribute("id");
     }
 
+    public static void setWebDriver(WebDriver driver) {
+        ReadingAction.driver = driver;
+    }
 }
